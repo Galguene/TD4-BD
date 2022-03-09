@@ -36,16 +36,21 @@ FROM DISTRIBUTIONVE DI
 WHERE OP.NUMFO = DI.NUMFO);
 ```
 
-### Privileges
+### Question 1
 
 ```sql
 grant select on distributionLA to I2A04A;
 grant select on operateurLA to I2A04A;
 grant select on communeLA to I2A04A;
 ```
-
-# CÉLA
-
+```sql
+GRANT SELECT ON COMMUNEVE TO I2A02B;
+GRANT SELECT ON DISTRIBUTIONVE TO I2A02B;
+GRANT SELECT ON OPERATEURVE TO I2A02B;
+```
 ```sql
 grant update(adresse) on distributionLA to I2A04A
+```
+```sql
+GRANT UPDATE(ADRESSE) ON DISTRIBUTIONVE TO I2A02B;
 ```
