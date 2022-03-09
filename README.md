@@ -39,11 +39,20 @@ WHERE OP.NUMFO = DI.NUMFO);
 ### Question 1
 
 ```sql
+--1
 grant select on distributionLA to I2A04A;
 grant select on operateurLA to I2A04A;
 grant select on communeLA to I2A04A;
-
-grant update(adresse) on distributionLA to I2A04A
+--2
+grant update(adresse) on distributionLA to I2A04A;
+--3
+grant insert on distributionLA to I2A04A;
+--4
+revoke select on distributionLA from I2A04A;
+revoke select on operateurLA from I2A04A;
+revoke select on communeLA from I2A04A;
+revoke update on distributionLA from I2A04A;
+revoke insert on distributionLA from I2A04A;
 ```
 ```sql
 /* 1 */
