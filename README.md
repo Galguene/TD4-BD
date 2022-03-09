@@ -35,3 +35,17 @@ WHERE NUMFO IN (SELECT NUMFO
 FROM DISTRIBUTIONVE DI
 WHERE OP.NUMFO = DI.NUMFO);
 ```
+
+### Privileges
+
+```sql
+grant select on distributionLA to I2A04A;
+grant select on operateurLA to I2A04A;
+grant select on communeLA to I2A04A;
+```
+
+# CÉLA
+
+```sql
+grant update(adresse) on distributionLA to I2A04A
+```
