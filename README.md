@@ -54,6 +54,9 @@ revoke select on communeLA from I2A04A;
 revoke update on distributionLA from I2A04A;
 revoke insert on distributionLA from I2A04A;
 --5
+create or replace view q5 as select id, numfo, code_insee, adresse,status
+from distributionLA;
+grant select on q5 to I2A04A;
 --6
 create or replace view nb4gLA as select c.NOM_COMMUNE, count(*) as NB_ANT_4G
 from distributionLA d, communeLA c, operateurLA o
@@ -130,4 +133,11 @@ GROUP BY C.NOM_COMMUNE;
 
 GRANT SELECT ON NB4GVE TO I2A02B;
 GRANT SELECT ON NB5GVE TO I2A02B;
+```
+
+### Question 2
+
+```sql
+```
+```sql
 ```
