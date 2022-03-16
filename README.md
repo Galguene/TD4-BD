@@ -138,6 +138,9 @@ GRANT SELECT ON NB5GVE TO I2A02B;
 ### Question 2
 
 ```sql
+--1
+create role i2a02bmon_ami;
+set role i2a02bmon_ami;
 ```
 ```sql
 ```
