@@ -53,6 +53,24 @@ revoke select on operateurLA from I2A04A;
 revoke select on communeLA from I2A04A;
 revoke update on distributionLA from I2A04A;
 revoke insert on distributionLA from I2A04A;
+--5
+--6
+create or replace view nb4gLA as select c.NOM_COMMUNE, count(*)
+from distributionLA d, communeLA c, operateurLA o
+where c.CODE_INSEE = d.CODE_INSEE
+and o.NUMFO = d.NUMFO
+and o.GENERATION = '4G'
+group by c.NOM_COMMUNE;
+
+create or replace view nb5gLA as select c.NOM_COMMUNE, count(*)
+from distributionLA d, communeLA c, operateurLA o
+where c.CODE_INSEE = d.CODE_INSEE
+and o.NUMFO = d.NUMFO
+and o.GENERATION = '5G'
+group by c.NOM_COMMUNE;
+
+grant select on nb4gLA to I2A04A;
+grant select on nb5gLA to I2A04A;
 ```
 ```sql
 /* 1 */
