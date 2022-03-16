@@ -147,6 +147,7 @@ grant select on operateurLA to i2a02bmon_ami;
 grant select on communeLA to i2a02bmon_ami;
 grant update(adresse) on distributionLA to i2a02bmon_ami;
 grant insert on distributionLA to i2a02bmon_ami;
+set role i2a02bmon_ami;
 ```
 ```sql
 ```
