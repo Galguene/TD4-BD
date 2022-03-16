@@ -74,6 +74,27 @@ group by c.NOM_COMMUNE;
 
 grant select on nb4gLA to I2A04A;
 grant select on nb5gLA to I2A04A;
+--7
+create or replace view opnb4gLA as select c.code_insee, c.nom_commune, o.nomfo, count(*) nb_ant_4g
+from distributionLA d, communeLA c, operateurLA o
+where c.code_insee = d.code_insee
+and o.numfo = d.numfo
+and o.generation = '4G'
+group by c.code_insee, c.nom_commune,o.nomfo;
+
+create or replace view opnb5gLA as select c.code_insee, c.nom_commune, o.nomfo, count(*) nb_ant_5g
+from distributionLA d, communeLA c, operateurLA o
+where c.code_insee = d.code_insee
+and o.numfo = d.numfo
+and o.generation = '5G'
+group by c.code_insee, c.nom_commune,o.nomfo;
+
+create or replace view opnbLA as select c.nom_commune, opnb4gLA.nomfo, nb_ant_4g, nv_ant_5g
+from communeLA c, opnb4gLA, opnb5gLA
+where c.code_insee = opnb4gLA.code_insee
+and c.code_insee = opnb5gLA.code_insee
+and opnb4gLA.nomfo = opnb5gLA.nomfo
+order by 1,2;
 ```
 ```sql
 -- 1
