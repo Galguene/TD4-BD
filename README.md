@@ -150,12 +150,13 @@ grant insert on distributionLA to i2a02bmon_ami;
 set role i2a02bmon_ami;
 --3
 grant i2a02bmon_ami to I2A04A;
-
 --4
 revoke select on distributionLA from i2a02bmon_ami;
 revoke select on operateurLA from i2a02bmon_ami;
 revoke select on communeLA from i2a02bmon_ami;
 set role i2a02bmon_ami;
+--5
+revoke i2a02bmon_ami from I2A04A;
 ```
 ```sql
 ```
