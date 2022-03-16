@@ -71,6 +71,17 @@ group by c.NOM_COMMUNE;
 
 grant select on nb4gLA to I2A04A;
 grant select on nb5gLA to I2A04A;
+
+--7
+create or replace view nbopLA as select c.NOM_COMMUNE, o.NOMFO, count(*) as NB_ANTENNES
+from distributionLA d, communeLA c, operateurLA o
+where c.CODE_INSEE = d.CODE_INSEE
+and o.NUMFO = d.NUMFO
+and (o.GENERATION = '4G' or o.GENERATION = '5G')
+group by c.NOM_COMMUNE, o.NOMFO
+order by 1, 2;
+
+grant select on nbopLA to I2A04A;
 ```
 ```sql
 -- 1
