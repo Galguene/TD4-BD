@@ -157,6 +157,26 @@ revoke select on communeLA from i2a02bmon_ami;
 set role i2a02bmon_ami;
 --5
 revoke i2a02bmon_ami from I2A04A;
+--6
+create role i2a02bvoir_mes_tables;
+grant select on distributionLA to i2a02bvoir_mes_tables;
+grant select on operateurLA to i2a02bvoir_mes_tables;
+grant select on communeLA to i2a02bvoir_mes_tables
+set role i2a02bvoir_mes_tables;
+create role i2a02bmaj_mes_tables;
+grant update(adresse) on distributionLA to i2a02bmaj_mes_tables;
+grant insert on distributionLA to i2a02bmaj_mes_tables;
+set role i2a02bmaj_mes_tables;
+--7
+create role i2a02bvoir_update;
+grant i2a02bmaj_mes_tables to i2a02bvoir_update;
+grant i2a02bvoir_mes_tables to i2a02bvoir_update;
+set role i2a02bvoir_update;
+--8
+grant i2a02bvoir_update to I2A04A;
+--9
+revoke i2a02bmaj_mes_tables from i2a02bvoir_update;
+set role i2a02bvoir_update;
 ```
 ```sql
 ```
