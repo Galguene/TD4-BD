@@ -55,14 +55,14 @@ revoke update on distributionLA from I2A04A;
 revoke insert on distributionLA from I2A04A;
 --5
 --6
-create or replace view nb4gLA as select c.NOM_COMMUNE, count(*)
+create or replace view nb4gLA as select c.NOM_COMMUNE, count(*) as NB_ANT_4G
 from distributionLA d, communeLA c, operateurLA o
 where c.CODE_INSEE = d.CODE_INSEE
 and o.NUMFO = d.NUMFO
 and o.GENERATION = '4G'
 group by c.NOM_COMMUNE;
 
-create or replace view nb5gLA as select c.NOM_COMMUNE, count(*)
+create or replace view nb5gLA as select c.NOM_COMMUNE, count(*) as NB_ANT_5G
 from distributionLA d, communeLA c, operateurLA o
 where c.CODE_INSEE = d.CODE_INSEE
 and o.NUMFO = d.NUMFO
