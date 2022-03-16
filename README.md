@@ -82,6 +82,17 @@ group by c.NOM_COMMUNE, o.NOMFO
 order by 1, 2;
 
 grant select on nbopLA to I2A04A;
+
+--8
+create or replace view nbtechLA as select c.NOM_COMMUNE, o.TECHNOLOGIE, count(*) as NB_ANTENNES
+from distributionLA d, communeLA c, operateurLA o
+where c.CODE_INSEE = d.CODE_INSEE
+and o.NUMFO = d.NUMFO
+and (o.GENERATION = '4G' or o.GENERATION = '5G')
+group by c.NOM_COMMUNE, o.TECHNOLOGIE
+order by 1, 2;
+
+grant select on nbtechLA to I2A04A;
 ```
 ```sql
 -- 1
