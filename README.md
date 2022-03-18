@@ -89,12 +89,33 @@ and o.numfo = d.numfo
 and o.generation = '5G'
 group by c.code_insee, c.nom_commune,o.nomfo;
 
-create or replace view opnbLA as select c.nom_commune, opnb4gLA.nomfo, nb_ant_4g, nv_ant_5g
+create or replace view opnbLA as select c.nom_commune, opnb4gLA.nomfo, nb_ant_4g, nb_ant_5g
 from communeLA c, opnb4gLA, opnb5gLA
 where c.code_insee = opnb4gLA.code_insee
 and c.code_insee = opnb5gLA.code_insee
 and opnb4gLA.nomfo = opnb5gLA.nomfo
 order by 1,2;
+
+grant select on opnbLA to I2A04A;
+--8
+--9
+create or replace view nb5g4gorangeLA as select l.nom_commune, l.nb_ant_5g, o.nb_ant_4g as nb_ant_4g_orange
+from (
+    select nom_commune, sum(nb_ant_5g) nb_ant_5g
+    from opnbLA
+    group by nom_commune
+    order by 1
+    ) l,
+     (
+        select *
+        from opnb4gLA
+        where nomfo = 'ORANGE'
+        ) o
+where o.nom_commune = l.nom_commune
+order by 2 desc;
+
+grant select on nb5g4gorangeLA to I2A04A;
+
 ```
 ```sql
 -- 1
