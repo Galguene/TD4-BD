@@ -271,3 +271,58 @@ GRANT I2A04AVOIR_UPDATE TO I2A02B;
 REVOKE I2A04AMAJ_MES_TABLES FROM I2A04AVOIR_UPDATE;
 SET ROLE I2A04AVOIR_UPDATE;
 ```
+
+### Question 3
+
+```sql
+--1
+create table communeLA as select * 
+from BASETD.COMMUNE c 
+where c.NOMDEP = 'Loire-Atlantique';
+
+create table distributionLA as select *
+from BASETD.DISTRIBUTION di
+where di.CODE_INSEE >= 44000
+and di.CODE_INSEE < 45000;
+
+create table operateurLA as select distinct o.NUMFO, o.NOMFO, o.GENERATION, o.TECHNOLOGIE
+from BASETD.OPERATEUR o, distributionLA d
+where o.NUMFO = d.NUMFO;
+
+--2
+--Coté LA
+GRANT REFERENCES ON operateurLA to I2A04A;
+--Coté VE
+create table CommuneVE as (
+select *
+from basetd.commune
+where nomdep = 'Vendée');
+
+create table distributionVE as (
+select di.*
+from basetd.distribution di, I2A02B.operateurLA op, communeVE co
+where di.numfo = op.numfo
+and di.code_insee = co.code_insee);
+
+--3
+--Coté LA
+ALTER TABLE CommuneLA ADD CONSTRAINT co_pk PRIMARY KEY (code_insee);
+ALTER TABLE OperateurLA ADD CONSTRAINT op_pk PRIMARY KEY (numfo);
+ALTER TABLE DistributionLA ADD CONSTRAINT di_pk PRIMARY KEY (ID);
+
+ALTER TABLE DistributionLa ADD FOREIGN KEY (numfo) REFERENCES OPERATEURLA;
+ALTER TABLE DistributionLa ADD FOREIGN KEY (code_insee) REFERENCES CommuneLa;
+
+--Coté VE
+alter table distributionVE add PRIMARY KEY (id);
+alter table distributionVE add foreign key (code_insee) references communeVE(code_insee);
+
+alter table communeVE add constraint co_pk PRIMARY KEY (code_insee);
+
+--4
+--Coté LA
+GRANT REFERENCES ON operateurla to I2A04A;
+
+--Coté VE
+alter table distributionVE add foreign key (numfo) references I2A02B.operateurla(numfo);
+```
